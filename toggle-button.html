@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multiple Emoji Toggles</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #fff;
+      gap: 40px;
+    }
+
+    .toggle-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .toggle {
+      width: 90px;
+      height: 45px;
+      background: #888;
+      border-radius: 25px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      position: absolute;
+      top: 2.5px;
+      left: 2.5px;
+      transition: all 0.3s ease;
+      background: transparent;
+      border: none;
+    }
+
+    .state-text {
+      margin-top: 10px;
+      font-weight: bold;
+      font-size: 15px;
+      color: #333;
+    }
+
+    /* Active state (ON) */
+    .toggle.active {
+      background: #5bc0f8;
+    }
+
+    .toggle.active .circle {
+      left: 47px;
+      background: transparent;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Toggle 1 -->
+  <div class="toggle-container">
+    <div class="toggle" data-off="🙂" data-on="☹️">
+      <div class="circle">🙂</div>
+    </div>
+    <div class="state-text">OFF</div>
+  </div>
+
+  <!-- Toggle 2 -->
+  <div class="toggle-container">
+    <div class="toggle" data-off="😎" data-on="☹️">
+      <div class="circle">😎</div>
+    </div>
+    <div class="state-text">OFF</div>
+  </div>
+
+  <!-- Toggle 3 -->
+  <div class="toggle-container">
+    <div class="toggle" data-off="😦" data-on="☹️">
+      <div class="circle">😦</div>
+    </div>
+    <div class="state-text">OFF</div>
+  </div>
+
+  <script>
+    // Select all toggles
+    const toggles = document.querySelectorAll(".toggle");
+
+    toggles.forEach(toggle => {
+      const circle = toggle.querySelector(".circle");
+      const stateText = toggle.nextElementSibling;
+
+      toggle.addEventListener("click", () => {
+        toggle.classList.toggle("active");
+
+        if (toggle.classList.contains("active")) {
+          circle.textContent = toggle.getAttribute("data-on");
+          stateText.textContent = "ON";
+        } else {
+          circle.textContent = toggle.getAttribute("data-off");
+          stateText.textContent = "OFF";
+          circle.style.background = "transparent";
+          circle.style.border = "none";
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
